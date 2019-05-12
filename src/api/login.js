@@ -1,27 +1,12 @@
-import request from '@/utils/request'
+/*
+  与后台交互模块 （依赖已封装的ajax函数）
+ */
+import ajax from '@/config/ajax'
+const BASE_URL = process.env.BASE_API
 
-export function login(username, password) {
-  return request({
-    url: '/user/login',
-    method: 'post',
-    data: {
-      username,
-      password
-    }
-  })
-}
-
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
-  })
-}
+// 获取胡老师账号密码
+export const reqGetTeaHuPsw = (tno) => ajax(BASE_URL + '/getTeaHuPsw', { tno })
+// 校验教师登录
+export const reqLogin = (tno, teaPsw) => ajax(BASE_URL + '/teacherLogin', { tno, teaPsw }, 'POST')
+// 请求退出登录
+export const reqLogOut = () => ajax(BASE_URL + '/teacherLogOut')

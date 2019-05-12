@@ -1,23 +1,32 @@
 <template>
   <div class="navbar">
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
-    <breadcrumb />
-    <el-dropdown class="avatar-container" trigger="click">
-      <div class="avatar-wrapper">
-        <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-        <i class="el-icon-caret-bottom"/>
-      </div>
-      <el-dropdown-menu slot="dropdown" class="user-dropdown">
-        <router-link class="inlineBlock" to="/">
-          <el-dropdown-item>
-            Home
-          </el-dropdown-item>
-        </router-link>
-        <el-dropdown-item divided>
-          <span style="display:block;" @click="logout">LogOut</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+    <breadcrumb :class="{ 'mobile-breadcrumb': device !== 'desktop' }"/>
+
+    <div class="right-menu">
+      <template v-if="device!=='mobile'">
+        <screenfull id="screenfull" class="right-menu-item hover-effect"/>
+      </template>
+
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
+        <div class="avatar-wrapper">
+          <img src="@/assets/images/teacher.jpg" class="user-avatar">
+          <i class="el-icon-caret-bottom"/>
+        </div>
+        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+          <router-link class="inlineBlock" to="/">
+            <el-dropdown-item>
+              首页
+            </el-dropdown-item>
+          </router-link>
+          <div @click="confirmLogOut">
+            <el-dropdown-item divided>
+              <span style="display:block;">退出登录</span>
+            </el-dropdown-item>
+          </div>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -25,32 +34,71 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import Screenfull from '@/components/Screenfull'
+import { removeStore } from '@/utils/mUtils'
+import { reqLogOut } from '@/api/login'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    Screenfull
   },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'device'
     ])
   },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
     },
-    logout() {
-      this.$store.dispatch('LogOut').then(() => {
-        location.reload() // 为了重新实例化vue-router对象 避免bug
+    confirmLogOut() {
+      this.$confirm('确定退出登录吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.logout()
+      }).catch(() => {
+        /* this.$message({
+           type: 'info',
+           message: '已取消删除'
+         });*/
       })
+    },
+    async logout() {
+      const result = await reqLogOut()
+      if (result.statu === 0) {
+        // 移除localStorage中teacherInfo
+        removeStore('teacherInfo')
+        // 重置vuex中userInfo
+        this.$store.dispatch('resetUserInfo')
+        this.$message({
+          message: result.msg,
+          type: 'success'
+        })
+        // 为了重新实例化vue-router对象 避免bug
+        location.reload()
+      } else {
+        this.$message({
+          message: '系统错误，退出登录失败',
+          type: 'warning'
+        })
+      }
     }
   }
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style type="text/scss" rel="stylesheet/scss" lang="scss" scoped>
+.mobile-breadcrumb {
+  width: 50%;
+  height: 50px;
+  font-size: 8px !important;
+  overflow: hidden;
+}
 .navbar {
   height: 50px;
   line-height: 50px;
@@ -60,6 +108,31 @@ export default {
     height: 50px;
     float: left;
     padding: 0 10px;
+    &:hover {
+      background: rgba(0, 0, 0, .025)
+    }
+  }
+  .right-menu {
+    float: right;
+    height: 100%;
+    line-height: 50px;
+    .right-menu-item {
+      display: inline-block;
+      padding: 0 8px;
+      height: 100%;
+      font-size: 18px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
+        transition: background .3s;
+
+        &:hover {
+          background: rgba(0, 0, 0, .025)
+        }
+      }
+    }
   }
   .screenfull {
     position: absolute;
@@ -68,10 +141,7 @@ export default {
     color: red;
   }
   .avatar-container {
-    height: 50px;
-    display: inline-block;
-    position: absolute;
-    right: 35px;
+    margin-right: 30px;
     .avatar-wrapper {
       cursor: pointer;
       margin-top: 5px;

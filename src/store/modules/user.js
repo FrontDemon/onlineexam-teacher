@@ -1,3 +1,4 @@
+/*
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
@@ -85,3 +86,4 @@ const user = {
 }
 
 export default user
+*/
