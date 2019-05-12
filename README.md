@@ -1,88 +1,68 @@
-# vue-admin-template
+# 简介
 
-> A minimal vue admin template with Element UI & axios & iconfont & permission control & lint
+## 1. 项目描述
 
-**Live demo:** http://panjiachen.github.io/vue-admin-template
+1. 此项目为一个基于Vue的前后端分离的在线考试系统项目
+2. 使用了 Vue 全家桶+ES5ES6ES7+Webpack 等前端新技术 
+3. 后端基于SripngBoot搭建SSM框架
+4. 包括学生端、教师端和管理员端 
+5. 采用模块化、组件化、工程化的模式开发
+6. 教师端和管理员端基于[vue-element-admin模板](https://github.com/PanJiaChen/vue-element-admin)
 
-[中文文档](https://github.com/PanJiaChen/vue-admin-template/blob/master/README-zh.md)
+## 2. 能从此项目中学到什么? 
 
-## Build Setup
+### 2.1 项目开发流程及开发方法 
 
-```bash
-# Clone project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+1. 熟悉一个项目的开发流程
+2. 学会组件化、模块化、工程化的开发模式 
+3. 掌握使用 vue-cli 脚手架初始化 Vue.js 项目
+4. 学会模拟 json 后端数据，实现前后端分离开发 
+5. 学会 ES5ES6ES7+eslint 的开发方式 
+6. 掌握一些项目优化技巧 
+7. 掌握WebSocket实时在线通信
 
-# Install dependencies
-npm install
+### 2.2 Vue 插件或第三方库
 
-# Serve with hot reload at localhost:9528
-npm run dev
+1. 学会使用 vue-router 开发单页应用 
+2. 学会使用 axios/vue-resource 与后端进行数据交互
+3. 学会使用 vuex 管理应用组件状态
+4. 学会使用 基于Vue的插件， 如vue-seamless-scroll实现无缝滚动，v-viewer实现图片预览，ly-tab实现触摸滑动并具有回弹效果等
+5. 学会使用 mint-ui、muse-ui和element-ui 组件库构建界面
+6. 学会使用 mockjs 模拟后台数据接口
+7. 学会通过API接口与后端进行交互  
+8. 学会通过第三方平台七牛云进行图片的存取  
 
-# Build for production with minification
-npm run build
+## 3. 运行项目
 
-# Build for production and view the bundle analyzer report
-npm run build --report
-```
+**onlineexam-student文件夹：**
 
-## Demo
+1. `npm install`
+2. `npm run dev`
 
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
+**onlineexam-student文件夹：**
 
-## Extra
+1. `npm install`
+2. `npm start`
 
-If you want router permission && generate menu by user roles , you can use this branch [permission-control](https://github.com/PanJiaChen/vue-admin-template/tree/permission-control)
+## 4. 其他项目地址
 
-This project is based on `webpack4` development. If you want to use `webpack3` development, please use this branch [webpack3](https://github.com/PanJiaChen/vue-admin-template/tree/webpack3)
+[在线考试系统学生端](https://github.com/FrontDemon/onlineexam-student)
 
-For `typescript` version, you can use [vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template) (Credits: [@Armour](https://github.com/Armour))
+[在线考试系统管理员端](https://github.com/FrontDemon/onlineexam-admin)
 
-## Related Project
+[在线考试系统后端项目源码](https://github.com/FrontDemon/onlineexam-system-backend)
 
-[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
+## 5. 在线演示地址
 
-[electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin)
+**在线考试系统教师端:** http://maweitao.top/onlineexam-teacher
 
-[vue-typescript-admin-template](https://github.com/Armour/vue-typescript-admin-template)
+## 6. 部分演示截图
 
-### Element-Ui using cdn tutorial
+<p align="center">
+	<img src="http://qiniu.maweitao.top/teacher-home.png" alt="Sample">
+	<p align="center">
+    <em>在线考试系统教师端首页</em>
+  </p>
+</p>
 
-First find `index.html`([root directory](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/index.html))
 
-Import css and js of `Element`, and then import vue. Because `Element` is vue-dependent, vue must be import before it.
-
-Then find [webpack.base.conf.js](https://github.com/PanJiaChen/vue-admin-template/blob/element-ui-cdn/build/webpack.base.conf.js)
-Add `externals` to make webpack not package vue and element.
-
-```
-externals: {
-  vue: 'Vue',
-  'element-ui':'ELEMENT'
-}
-```
-
-Finally there is a small detail to pay attention to that if you import vue in global, you don't need to manually `Vue.use(Vuex)`, it will be automatically mounted, see
-[issue](https://github.com/vuejs/vuex/issues/731)
-
-And you can use `npm run build --report` to see the effect
-
-Pictured:
-![demo](https://panjiachen.github.io/images/element-cdn.png)
-
-**[Detailed code](https://github.com/PanJiaChen/vue-admin-template/commit/746aff560932704ae821f82f10b8b2a9681d5177)**
-
-**[Branch](https://github.com/PanJiaChen/vue-admin-template/tree/element-ui-cdn)**
-
-## Browsers support
-
-Modern browsers and Internet Explorer 10+.
-
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-| --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions
-
-## License
-
-[MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
-
-Copyright (c) 2017-present PanJiaChen
