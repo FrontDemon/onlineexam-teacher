@@ -34,12 +34,12 @@
 
 ## 3. 运行项目
 
-**onlineexam-student文件夹：**
+**onlineexam-teacher文件夹：**
 
 1. `npm install`
 2. `npm run dev`
 
-**onlineexam-student文件夹：**
+**onlineexam-teacher文件夹：**
 
 1. `npm install`
 2. `npm start`
